@@ -5,18 +5,14 @@ node_js:
 services:
   - docker
 
-before_install:
-  - docker build -t jackyxu/docker_test -f Dockerfile.dev .
-
-before_script:
-  - npm install firebase-tools -g
-
 jobs:
   include:
     - stage: "Tests"
       name: "Unit test"
+      before_install: docker build -t jackyxu/docker_test -f Dockerfile.dev .
       script: docker run -e CI=true jackyxu/docker_test npm run test -- --coverage
     - stage: deploy
       name: "deploy to firebase"
+      before_script: npm install firebase-tools -g
       script: firebase deploy --only hosting --token "1//01QaCswrK88a-CgYIARAAGAESNwF-L9IrOfFHMiOcns2j-KAyQAF2C7cN9CdI_8iPz3gLJ1gy1Lp1ENZY_hoUnA5Psl3-BaCJPCE"
  
