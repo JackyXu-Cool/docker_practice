@@ -5,14 +5,9 @@ services:
 
 before_install:
   - docker build -t jackyxu/docker_practice -f Dockerfile.dev .
+  - npm install firebase-tools -g
 
-scripts:
+script:
   - docker run -e CI=true jackyxu/docker_practice npm run test -- --coverage
-
-deploy:
-  provider: firebase
-  token:
-    secure: "1//01QaCswrK88a-CgYIARAAGAESNwF-L9IrOfFHMiOcns2j-KAyQAF2C7cN9CdI_8iPz3gLJ1gy1Lp1ENZY_hoUnA5Psl3-BaCJPCE"
-  message: "deployed to firebase"
-  on:
-    branch: master
+  - firebase deploy --only hosting --token "1//01QaCswrK88a-CgYIARAAGAESNwF-L9IrOfFHMiOcns2j-KAyQAF2C7cN9CdI_8iPz3gLJ1gy1Lp1ENZY_hoUnA5Psl3-BaCJPCE"
+  
