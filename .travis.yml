@@ -7,11 +7,10 @@ jobs:
     - stage: "Tests"
       name: "Unit test"
       script: npm run test -- --coverage
-    - stage: "Build"
-      name: "Build public dir"
-      script: npm run build
     - stage: deploy
       name: "deploy to firebase"
       before_script: npm install firebase-tools -g
-      script: firebase deploy --only hosting --token "1//01QaCswrK88a-CgYIARAAGAESNwF-L9IrOfFHMiOcns2j-KAyQAF2C7cN9CdI_8iPz3gLJ1gy1Lp1ENZY_hoUnA5Psl3-BaCJPCE"
+      script: 
+        npm run build
+        firebase deploy --only hosting --token "1//01QaCswrK88a-CgYIARAAGAESNwF-L9IrOfFHMiOcns2j-KAyQAF2C7cN9CdI_8iPz3gLJ1gy1Lp1ENZY_hoUnA5Psl3-BaCJPCE"
  
